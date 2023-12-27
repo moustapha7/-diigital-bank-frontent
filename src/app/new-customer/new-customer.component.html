@@ -1,0 +1,20 @@
+<div class="container mt-2">
+    <div class="card col-md-6 offset-3 mt-2" >
+        <div class="card-header">New Customer</div>
+        <div class="card-body">
+           <form [formGroup]="newCustomerFormGroup" (submit)="handleSaveCustomer()">
+                <div class="mb-3">
+                    <label for="" class="form-label">Nom</label>
+                    <input type="text" formControlName="nom" class="form-control" placeholder=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Email</label>
+                    <input type="text" formControlName="email" class="form-control" placeholder=""/>
+                </div>
+                <button [disabled]="!newCustomerFormGroup.valid" class="btn btn-primary">
+                    Save
+                </button>
+           </form>
+        </div>
+    </div>
+</div>
