@@ -5,6 +5,7 @@ import { CustomerService } from '../services/customer.service';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Customer } from '../model/customer.model';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customers',
@@ -18,10 +19,11 @@ export class CustomersComponent implements OnInit {
 
 
 
+
   customers! :  Observable<Array<Customer>>;
   errorMessage! : string;
   searchFormGroup : FormGroup | undefined;
-  constructor (private customerService : CustomerService, private fb : FormBuilder){}
+  constructor (private customerService : CustomerService, private fb : FormBuilder, private router: Router){}
 
 
   ngOnInit(): void {
@@ -53,6 +55,8 @@ export class CustomersComponent implements OnInit {
   }
 
   handleDeleteCustomer(c : Customer) {
+    let conf =confirm("Etes vous sure ?")
+    if(!conf) return;
     this.customerService.deleteCustomer(c.id).subscribe({
       next : (resp) =>{
         alert("Customer deleted succesfully");
@@ -63,6 +67,11 @@ export class CustomersComponent implements OnInit {
         console.log(err);
       }
     });
+  }
+
+
+  handleCustomerAccounts(customer: Customer) {
+    this.router.navigateByUrl('/customer-accounts/'+customer.id, {state: customer});
   }
 
 }
